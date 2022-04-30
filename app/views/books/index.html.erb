@@ -1,0 +1,50 @@
+<html>
+  <body>
+    <main>
+      <p id="notice"></p>
+      <% if @nbook.errors.any? %>
+        <%= @nbook.errors.count %>errors prohibited this obj from being saved:
+          <ul>
+            <% @nbook.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      <div class="container px-5 px-sm-0">
+        <div class="row">
+          <%= render 'books', user: @user, nbook: @nbook %>
+
+          <div class="col-md-8 offset-md-1">
+            <h2>Books</h2>
+            <table class="table table-hover table-inverse">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Title</th>
+                  <th>Opinion</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @books.each do |book| %>
+                <tr>
+                  <td>
+                    <%= link_to image_tag("/assets/default-image.jpg"), user_path(book.user.id) %>
+                  </td>
+                  <td>
+                    <%= link_to book_path(book.id) do %>
+                      <%= book.title %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <p><%= book.body %></p>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </main>
+  </body>
+</html>
